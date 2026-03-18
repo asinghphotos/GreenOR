@@ -324,7 +324,7 @@ export default function LogCasePage() {
           {STEP_LABELS.map((label, i) => (
             <button key={i}
               onClick={() => { if (i < step) { setDirection('back'); setStep(i) } }}
-              className={`text-[9px] sm:text-[11px] font-semibold transition-colors ${
+              className={`text-[9px] sm:text-[11px] font-semibold transition-all ${
                 i === step ? 'text-green-900' : i < step ? 'text-green-500 cursor-pointer hover:text-green-700' : 'text-beige-300'
               }`}>
               {label}
@@ -332,14 +332,18 @@ export default function LogCasePage() {
           ))}
         </div>
         <div className="h-1.5 bg-beige-200 rounded-full overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-green-500 to-green-300 rounded-full transition-all duration-500 ease-out"
-            style={{ width: `${((step + 1) / TOTAL_STEPS) * 100}%` }} />
+          <div className="h-full rounded-full transition-all duration-500 ease-out"
+            style={{
+              width: `${((step + 1) / TOTAL_STEPS) * 100}%`,
+              background: 'linear-gradient(90deg, #74C69D 0%, #40916C 60%, #2D6A4F 100%)',
+              boxShadow: '0 0 6px rgba(64, 145, 108, 0.4)',
+            }} />
         </div>
       </div>
 
       {/* Running total */}
       {step >= 1 && (
-        <div className="animate-fade-in mb-5 card p-3.5 flex items-center justify-between">
+        <div className="animate-fade-in mb-5 card card-accent-top p-3.5 flex items-center justify-between">
           <span className="text-xs font-medium text-green-700/50 uppercase tracking-wide">Running Total</span>
           <span className={`text-lg font-bold ${emColor(totalEmissions)}`}>{fmtEmissions(totalEmissions)}</span>
         </div>
@@ -1116,13 +1120,19 @@ export default function LogCasePage() {
               <p className="text-sm text-green-700/50 mt-1">Confirm everything looks right</p>
             </div>
 
-            <div className={`p-6 rounded-2xl text-center border-[1.5px] ${
+            <div className={`p-7 rounded-2xl text-center border-[1.5px] ${
               totalEmissions < 4 ? 'bg-green-50 border-green-200' :
               totalEmissions <= 8 ? 'bg-amber-50 border-amber-200' :
               'bg-red-50 border-red-200'
-            }`}>
-              <div className="text-xs text-green-700/50 font-medium uppercase tracking-wide mb-2">Total Case Emissions</div>
-              <div className={`text-4xl font-bold ${emColor(totalEmissions)}`}>{fmtEmissions(totalEmissions)}</div>
+            }`} style={{
+              boxShadow: totalEmissions < 4
+                ? '0 4px 24px rgba(64, 145, 108, 0.12), inset 0 1px 0 rgba(255,255,255,0.7)'
+                : totalEmissions <= 8
+                ? '0 4px 24px rgba(217, 119, 6, 0.1), inset 0 1px 0 rgba(255,255,255,0.7)'
+                : '0 4px 24px rgba(220, 38, 38, 0.1), inset 0 1px 0 rgba(255,255,255,0.7)'
+            }}>
+              <div className="text-xs text-green-700/50 font-medium uppercase tracking-widest mb-3">Total Case Emissions</div>
+              <div className={`text-5xl font-bold tracking-tight ${emColor(totalEmissions)}`}>{fmtEmissions(totalEmissions)}</div>
             </div>
 
             <div className="card p-5">

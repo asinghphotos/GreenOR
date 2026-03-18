@@ -59,9 +59,9 @@ export default async function CaseDetailPage({
     <div className="max-w-xl mx-auto space-y-6">
       <Link
         href="/dashboard/history"
-        className="inline-block text-xs font-medium text-green-700/50 hover:text-green-700 transition-colors"
+        className="inline-flex items-center gap-1 text-xs font-medium text-green-700/50 hover:text-green-700 transition-colors group"
       >
-        ← Back to History
+        <span className="transition-transform duration-200 group-hover:-translate-x-0.5">←</span> Back to History
       </Link>
 
       {/* Header */}
@@ -75,19 +75,25 @@ export default async function CaseDetailPage({
       </div>
 
       {/* Total emissions */}
-      <div className={`animate-fade-up delay-1 p-6 rounded-2xl text-center border-[1.5px] ${
+      <div className={`animate-fade-up delay-1 p-7 rounded-2xl text-center border-[1.5px] ${
         caseData.total_emissions_kg < 4 ? 'bg-green-50 border-green-200'
           : caseData.total_emissions_kg <= 8 ? 'bg-amber-50 border-amber-200'
           : 'bg-red-50 border-red-200'
-      }`}>
-        <div className="text-xs text-green-700/50 font-medium uppercase tracking-wide mb-2">Total Case Emissions</div>
-        <div className={`text-4xl font-bold ${emColor(caseData.total_emissions_kg)}`}>
+      }`} style={{
+        boxShadow: caseData.total_emissions_kg < 4
+          ? '0 4px 24px rgba(64, 145, 108, 0.12), inset 0 1px 0 rgba(255,255,255,0.7)'
+          : caseData.total_emissions_kg <= 8
+          ? '0 4px 24px rgba(217, 119, 6, 0.1), inset 0 1px 0 rgba(255,255,255,0.7)'
+          : '0 4px 24px rgba(220, 38, 38, 0.1), inset 0 1px 0 rgba(255,255,255,0.7)'
+      }}>
+        <div className="text-xs text-green-700/50 font-medium uppercase tracking-widest mb-3">Total Case Emissions</div>
+        <div className={`text-5xl font-bold tracking-tight ${emColor(caseData.total_emissions_kg)}`}>
           {fmtEmissions(caseData.total_emissions_kg)}
         </div>
       </div>
 
       {/* Case details */}
-      <div className="animate-fade-up delay-2 card p-6">
+      <div className="animate-fade-up delay-2 card card-accent-top p-6">
         <div className="text-xs font-bold text-green-700/40 uppercase tracking-wide mb-4">Case Details</div>
         <div className="grid grid-cols-2 gap-y-4 gap-x-6 text-sm">
           {[

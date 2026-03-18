@@ -29,23 +29,23 @@ export default async function DashboardLayout({
   return (
     <div className="min-h-screen bg-beige">
       {/* ── Top nav ── */}
-      <nav className="border-b border-beige-200 bg-white/70 backdrop-blur-md sticky top-0 z-40">
+      <nav className="border-b border-beige-200/80 bg-white/75 backdrop-blur-lg sticky top-0 z-40" style={{ boxShadow: '0 1px 20px rgba(27, 67, 50, 0.05)' }}>
         <div className="max-w-5xl mx-auto px-6 sm:px-10 h-14 flex items-center justify-between">
           {/* Left: logo + links */}
           <div className="flex items-center gap-8">
-            <Link href="/dashboard" className="text-xl font-bold tracking-tight text-green-900">
+            <Link href="/dashboard" className="text-xl font-bold tracking-tight text-green-900 hover:text-green-700 transition-colors">
               Green<span className="text-green-500">OR</span>
             </Link>
             <div className="hidden sm:flex items-center gap-6 text-sm">
               <Link
                 href="/dashboard"
-                className="text-green-700/70 hover:text-green-900 transition-colors font-medium"
+                className="nav-link-animated text-green-700/70 hover:text-green-900 transition-colors font-medium pb-0.5"
               >
                 Dashboard
               </Link>
               <Link
                 href="/dashboard/history"
-                className="text-green-700/70 hover:text-green-900 transition-colors font-medium"
+                className="nav-link-animated text-green-700/70 hover:text-green-900 transition-colors font-medium pb-0.5"
               >
                 History
               </Link>
@@ -69,10 +69,10 @@ export default async function DashboardLayout({
 
         {/* Mobile bottom links */}
         <div className="sm:hidden flex items-center justify-center gap-8 border-t border-beige-100 py-2.5 text-xs font-medium">
-          <Link href="/dashboard" className="text-green-700/70 hover:text-green-900 transition-colors">
+          <Link href="/dashboard" className="nav-link-animated text-green-700/70 hover:text-green-900 transition-colors pb-0.5">
             Dashboard
           </Link>
-          <Link href="/dashboard/history" className="text-green-700/70 hover:text-green-900 transition-colors">
+          <Link href="/dashboard/history" className="nav-link-animated text-green-700/70 hover:text-green-900 transition-colors pb-0.5">
             History
           </Link>
         </div>

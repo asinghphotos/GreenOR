@@ -81,7 +81,19 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+
+      {/* ── Ambient background glow ── */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="glow-orb w-[700px] h-[500px] bg-green-100"
+          style={{ top: '-120px', left: '50%', transform: 'translateX(-50%)' }}
+        />
+        <div
+          className="glow-orb w-[400px] h-[300px] bg-green-50"
+          style={{ bottom: '10%', right: '-100px', animationDelay: '0.6s' }}
+        />
+      </div>
 
       {/* ── Nav ── */}
       <nav className="relative flex items-center px-6 sm:px-10 py-3 max-w-5xl mx-auto w-full">
@@ -92,7 +104,7 @@ export default function LandingPage() {
         <div className="flex-1 flex justify-end">
           <a
             href="/login"
-            className="text-sm font-medium text-green-700 hover:text-green-900 transition-colors"
+            className="nav-link-animated text-sm font-medium text-green-700 hover:text-green-900 transition-colors"
           >
             Sign in
           </a>
@@ -100,10 +112,12 @@ export default function LandingPage() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="flex-1 flex items-center px-6 sm:px-10 py-3 max-w-2xl mx-auto w-full text-center">
+      <section className="relative flex-1 flex items-center px-6 sm:px-10 py-3 max-w-2xl mx-auto w-full text-center">
         <div className="w-full">
-          <div className="animate-fade-up inline-block mb-3 px-4 py-1.5 bg-green-50 text-green-700 text-xs font-bold tracking-wide uppercase rounded-full">
-            Measure · Compare · Reduce
+          <div className="animate-fade-up mb-3">
+            <span className="badge-pill">
+              Measure · Compare · Reduce
+            </span>
           </div>
           <h1 className="animate-fade-up delay-1 text-3xl sm:text-[2.75rem] font-bold text-green-900 mb-3 leading-[1.15] tracking-tight">
             Sustainable surgery starts with knowing your footprint
@@ -167,11 +181,11 @@ export default function LandingPage() {
               desc: 'Build streaks, beat personal bests, and see how small choices add up to real environmental impact.',
             },
           ].map((feature, i) => (
-            <div key={i} className="hover-lift card p-4 text-center">
-              <div className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-green-50 text-green-700 text-xs font-bold mb-2">
+            <div key={i} className="hover-lift card card-accent-top p-5 text-center">
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-green-50 to-green-100 text-green-700 text-xs font-bold mb-3 shadow-sm">
                 {feature.num}
               </div>
-              <h3 className="text-sm font-bold text-green-900 mb-1">{feature.title}</h3>
+              <h3 className="text-sm font-bold text-green-900 mb-1.5">{feature.title}</h3>
               <p className="text-xs text-green-700/70 leading-relaxed">{feature.desc}</p>
             </div>
           ))}
@@ -193,7 +207,7 @@ export default function LandingPage() {
             { label: 'Institutions', value: globalStats.institutions },
             { label: 'Surgeons', value: globalStats.surgeons },
           ].map((stat, i) => (
-            <div key={i} className="card p-4 text-center">
+            <div key={i} className="hover-lift card p-4 text-center">
               <div className="text-2xl sm:text-3xl font-bold text-green-900 mb-0.5">
                 <CountUp target={stat.value} />
               </div>
@@ -206,7 +220,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="px-6 py-2 text-center">
+      <footer className="relative px-6 py-2 text-center">
         <div className="text-sm font-bold text-green-900/30 tracking-tight">
           Green<span className="text-green-500/40">OR</span>
         </div>

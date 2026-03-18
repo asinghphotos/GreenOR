@@ -33,13 +33,13 @@ export default function CompleteProfilePage() {
     <div className="min-h-screen flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-sm text-center">
         {/* Logo */}
-        <div className="mb-10">
+        <div className="mb-10 animate-fade-in">
           <span className="text-3xl font-bold tracking-tight text-green-900">
             Green<span className="text-green-500">OR</span>
           </span>
         </div>
 
-        <div className="animate-scale-in card p-8 sm:p-10 text-left">
+        <div className="animate-scale-in card card-accent-top p-8 sm:p-10 text-left">
           <div className="text-center mb-8">
             <h1 className="text-xl font-bold text-green-900 mb-2">Complete Your Profile</h1>
             <p className="text-sm text-green-700/60">

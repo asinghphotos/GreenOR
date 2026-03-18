@@ -127,16 +127,16 @@ export default function DashboardPage() {
         {/* Stats grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { label: 'Total Cases', value: String(stats?.totalCases || 0), icon: <ClipboardIcon className="w-6 h-6" /> },
-            { label: 'Total CO₂e', value: fmtEmissions(stats?.totalEmissions || 0), icon: <LeafIcon className="w-6 h-6" /> },
-            { label: 'Avg / Case', value: fmtEmissions(stats?.avgEmissions || 0), icon: <ChartBarIcon className="w-6 h-6" /> },
-            { label: 'Day Streak', value: String(stats?.streak || 0), icon: <FlameIcon className="w-6 h-6" /> },
+            { label: 'Total Cases', value: String(stats?.totalCases || 0), icon: <ClipboardIcon className="w-5 h-5" /> },
+            { label: 'Total CO₂e', value: fmtEmissions(stats?.totalEmissions || 0), icon: <LeafIcon className="w-5 h-5" /> },
+            { label: 'Avg / Case', value: fmtEmissions(stats?.avgEmissions || 0), icon: <ChartBarIcon className="w-5 h-5" /> },
+            { label: 'Day Streak', value: String(stats?.streak || 0), icon: <FlameIcon className="w-5 h-5" /> },
           ].map((stat, i) => (
             <div
               key={i}
-              className={`animate-fade-up delay-${i + 1} hover-lift card p-5 text-center`}
+              className={`animate-fade-up delay-${i + 1} hover-lift card card-accent-top p-5 text-center`}
             >
-              <div className="flex justify-center mb-2 text-green-600">{stat.icon}</div>
+              <div className="stat-icon-wrap">{stat.icon}</div>
               <div className="text-xl font-bold text-green-900">{stat.value}</div>
               <div className="text-xs text-green-700/50 font-medium mt-1 uppercase tracking-wide">
                 {stat.label}
@@ -149,7 +149,7 @@ export default function DashboardPage() {
         {stats && stats.approachData.length > 0 && (
           <div className="animate-fade-up delay-3 card p-6 sm:p-8">
             <h2 className="text-lg font-bold text-green-900 mb-5">Emissions by Approach</h2>
-            <div className="space-y-4">
+            <div className="space-y-5">
               {stats.approachData.map((item) => {
                 const maxAvg = Math.max(...stats.approachData.map(d => d.avg_emissions), 1)
                 const widthPct = Math.max((item.avg_emissions / maxAvg) * 100, 4)
@@ -164,10 +164,14 @@ export default function DashboardPage() {
                         <span className="text-green-700/40 ml-1">({item.case_count})</span>
                       </span>
                     </div>
-                    <div className="h-2.5 bg-beige-100 rounded-full overflow-hidden">
+                    <div className="h-3 bg-beige-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-green-300 to-green-500 rounded-full transition-all duration-700"
-                        style={{ width: `${widthPct}%` }}
+                        className="h-full rounded-full transition-all duration-700"
+                        style={{
+                          width: `${widthPct}%`,
+                          background: 'linear-gradient(90deg, #74C69D 0%, #40916C 60%, #2D6A4F 100%)',
+                          boxShadow: '0 0 8px rgba(64, 145, 108, 0.3)',
+                        }}
                       />
                     </div>
                   </div>
@@ -197,7 +201,14 @@ export default function DashboardPage() {
                 <Link
                   key={c.id}
                   href={`/dashboard/case?id=${c.id}`}
-                  className={`hover-lift block p-4 rounded-xl bg-beige-100/50 hover:bg-beige-100 transition-colors delay-${Math.min(i + 5, 7)}`}
+                  className={`hover-lift block p-4 rounded-xl bg-beige-100/50 hover:bg-beige-100 transition-all delay-${Math.min(i + 5, 7)}`}
+                  style={{
+                    borderLeft: `3px solid ${
+                      c.total_emissions_kg < 4 ? '#40916C'
+                      : c.total_emissions_kg <= 8 ? '#D97706'
+                      : '#DC2626'
+                    }`,
+                  }}
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="min-w-0">

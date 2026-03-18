@@ -52,7 +52,14 @@ export default async function HistoryPage({
             <Link
               key={c.id}
               href={`/dashboard/case?id=${c.id}`}
-              className={`hover-lift block p-5 card transition-all hover:border-green-300 animate-fade-up delay-${Math.min(i, 7)}`}
+              className={`hover-lift block p-5 card transition-all animate-fade-up delay-${Math.min(i, 7)}`}
+              style={{
+                borderLeft: `3px solid ${
+                  c.total_emissions_kg < 4 ? '#40916C'
+                  : c.total_emissions_kg <= 8 ? '#D97706'
+                  : '#DC2626'
+                }`,
+              }}
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="min-w-0">
