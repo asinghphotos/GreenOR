@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase-browser'
 import { fmtEmissions, emColor } from '@/lib/emissions'
 import Onboarding from '@/components/Onboarding'
 import Link from 'next/link'
+import { ClipboardIcon, LeafIcon, ChartBarIcon, FlameIcon, SproutIcon } from '@/components/Icons'
 
 interface DashboardStats {
   totalCases: number
@@ -126,16 +127,16 @@ export default function DashboardPage() {
         {/* Stats grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { label: 'Total Cases', value: String(stats?.totalCases || 0), icon: '📋' },
-            { label: 'Total CO₂e', value: fmtEmissions(stats?.totalEmissions || 0), icon: '🌿' },
-            { label: 'Avg / Case', value: fmtEmissions(stats?.avgEmissions || 0), icon: '📊' },
-            { label: 'Day Streak', value: String(stats?.streak || 0), icon: '🔥' },
+            { label: 'Total Cases', value: String(stats?.totalCases || 0), icon: <ClipboardIcon className="w-6 h-6" /> },
+            { label: 'Total CO₂e', value: fmtEmissions(stats?.totalEmissions || 0), icon: <LeafIcon className="w-6 h-6" /> },
+            { label: 'Avg / Case', value: fmtEmissions(stats?.avgEmissions || 0), icon: <ChartBarIcon className="w-6 h-6" /> },
+            { label: 'Day Streak', value: String(stats?.streak || 0), icon: <FlameIcon className="w-6 h-6" /> },
           ].map((stat, i) => (
             <div
               key={i}
               className={`animate-fade-up delay-${i + 1} hover-lift card p-5 text-center`}
             >
-              <div className="text-2xl mb-2">{stat.icon}</div>
+              <div className="flex justify-center mb-2 text-green-600">{stat.icon}</div>
               <div className="text-xl font-bold text-green-900">{stat.value}</div>
               <div className="text-xs text-green-700/50 font-medium mt-1 uppercase tracking-wide">
                 {stat.label}
@@ -216,7 +217,7 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <div className="text-4xl mb-4">🌱</div>
+              <div className="flex justify-center mb-4 text-green-500"><SproutIcon className="w-10 h-10" /></div>
               <p className="text-green-700/60 text-sm mb-6">No cases logged yet — let&apos;s change that.</p>
               <Link href="/dashboard/log" className="btn-primary">
                 Log Your First Case

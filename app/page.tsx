@@ -99,16 +99,19 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* ── Nav ── */}
-      <nav className="flex items-center justify-between px-6 sm:px-10 py-5 max-w-5xl mx-auto">
+      <nav className="relative flex items-center px-6 sm:px-10 py-5 max-w-5xl mx-auto">
+        <div className="flex-1" />
         <div className="text-2xl font-bold tracking-tight text-green-900">
           Green<span className="text-green-500">OR</span>
         </div>
-        <a
-          href="/login"
-          className="text-sm font-medium text-green-700 hover:text-green-900 transition-colors"
-        >
-          Sign in
-        </a>
+        <div className="flex-1 flex justify-end">
+          <a
+            href="/login"
+            className="text-sm font-medium text-green-700 hover:text-green-900 transition-colors"
+          >
+            Sign in
+          </a>
+        </div>
       </nav>
 
       {/* ── Hero ── */}

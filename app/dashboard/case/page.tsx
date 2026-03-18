@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase-server'
 import { fmtEmissions, emColor } from '@/lib/emissions'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { MagnifyingGlassIcon } from '@/components/Icons'
 
 export default async function CaseDetailPage({
   searchParams,
@@ -23,7 +24,7 @@ export default async function CaseDetailPage({
   if (!caseData) {
     return (
       <div className="max-w-xl mx-auto text-center py-16">
-        <div className="text-4xl mb-4">🔍</div>
+        <div className="flex justify-center mb-4 text-green-400"><MagnifyingGlassIcon className="w-10 h-10" /></div>
         <p className="text-green-700/50 text-sm mb-6">Case not found.</p>
         <Link href="/dashboard/history" className="text-sm font-medium text-green-700 hover:text-green-900 transition-colors">
           ← Back to History

@@ -1,22 +1,23 @@
 'use client'
 
 import { useState } from 'react'
+import { LeafIcon, ClipboardIcon, GlobeIcon } from '@/components/Icons'
 
 const slides = [
   {
     title: 'Welcome to GreenOR',
     body: 'Track the environmental impact of every surgical case you participate in.',
-    icon: '🌿',
+    icon: <LeafIcon className="w-12 h-12" />,
   },
   {
     title: 'Log Your Cases',
     body: 'Our guided wizard records instruments, supplies, and anesthesia — we calculate the carbon footprint automatically.',
-    icon: '📋',
+    icon: <ClipboardIcon className="w-12 h-12" />,
   },
   {
     title: 'Make a Difference',
     body: 'Compare approaches, build streaks, and see how small changes in the OR add up to big environmental impact.',
-    icon: '🌍',
+    icon: <GlobeIcon className="w-12 h-12" />,
   },
 ]
 
@@ -26,7 +27,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm px-6">
       <div className="animate-scale-in card p-10 max-w-sm w-full shadow-2xl text-center">
-        <div className="text-5xl mb-6">{slides[current].icon}</div>
+        <div className="flex justify-center mb-6 text-green-600">{slides[current].icon}</div>
         <h2 className="text-xl font-bold text-green-900 mb-3 tracking-tight">
           {slides[current].title}
         </h2>

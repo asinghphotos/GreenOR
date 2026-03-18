@@ -3,6 +3,7 @@ import { fmtEmissions, emColor } from '@/lib/emissions'
 import HistoryFilters from '@/components/HistoryFilters'
 import Link from 'next/link'
 import { Suspense } from 'react'
+import { ClipboardIcon } from '@/components/Icons'
 
 export default async function HistoryPage({
   searchParams,
@@ -71,7 +72,7 @@ export default async function HistoryPage({
           ))
         ) : (
           <div className="text-center py-16">
-            <div className="text-4xl mb-4">📋</div>
+            <div className="flex justify-center mb-4 text-green-400"><ClipboardIcon className="w-10 h-10" /></div>
             <p className="text-green-700/50 text-sm mb-6">No cases found.</p>
             <Link href="/dashboard/log" className="btn-primary">
               Log a Case
