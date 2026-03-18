@@ -134,7 +134,7 @@ export default function DashboardPage() {
           ].map((stat, i) => (
             <div
               key={i}
-              className={`animate-fade-up delay-${i + 1} hover-lift card card-accent-top p-5 text-center`}
+              className={`animate-fade-up delay-${i + 1} hover-glow card card-accent-top p-5 text-center`}
             >
               <div className="stat-icon-wrap">{stat.icon}</div>
               <div className="text-xl font-bold text-green-900">{stat.value}</div>

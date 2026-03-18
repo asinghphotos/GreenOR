@@ -84,16 +84,12 @@ export default function LandingPage() {
     <div className="min-h-screen flex flex-col relative overflow-hidden">
 
       {/* ── Ambient background glow ── */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="glow-orb w-[700px] h-[500px] bg-green-100"
-          style={{ top: '-120px', left: '50%', transform: 'translateX(-50%)' }}
-        />
-        <div
-          className="glow-orb w-[400px] h-[300px] bg-green-50"
-          style={{ bottom: '10%', right: '-100px', animationDelay: '0.6s' }}
-        />
-      </div>
+      <div
+        className="glow-orb pointer-events-none absolute inset-x-0 top-0 h-[420px]"
+        style={{
+          background: 'radial-gradient(ellipse 70% 100% at 50% 0%, rgba(183, 228, 199, 0.38) 0%, transparent 100%)',
+        }}
+      />
 
       {/* ── Nav ── */}
       <nav className="relative flex items-center px-6 sm:px-10 py-3 max-w-5xl mx-auto w-full">
@@ -120,10 +116,10 @@ export default function LandingPage() {
             </span>
           </div>
           <h1 className="animate-fade-up delay-1 text-3xl sm:text-[2.75rem] font-bold text-green-900 mb-3 leading-[1.15] tracking-tight">
-            Sustainable surgery starts with knowing your footprint
+            Every case leaves a footprint.<br className="hidden sm:block" /> Make yours count.
           </h1>
-          <p className="animate-fade-up delay-2 text-lg sm:text-xl text-green-700/80 mb-5 leading-relaxed max-w-lg mx-auto">
-            Track instruments, measure carbon emissions per case, and make data-driven choices to reduce OR waste.
+          <p className="animate-fade-up delay-2 text-base sm:text-lg text-green-700/75 mb-5 leading-relaxed max-w-md mx-auto">
+            Log what you use, calculate your carbon per case, and join surgeons building a more sustainable OR.
           </p>
 
           <form onSubmit={handleSubmit} className="animate-fade-up delay-3 max-w-md mx-auto">
@@ -207,7 +203,7 @@ export default function LandingPage() {
             { label: 'Institutions', value: globalStats.institutions },
             { label: 'Surgeons', value: globalStats.surgeons },
           ].map((stat, i) => (
-            <div key={i} className="hover-lift card p-4 text-center">
+            <div key={i} className="hover-glow card p-4 text-center">
               <div className="text-2xl sm:text-3xl font-bold text-green-900 mb-0.5">
                 <CountUp target={stat.value} />
               </div>
