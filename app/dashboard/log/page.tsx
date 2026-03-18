@@ -553,7 +553,7 @@ export default function LogCasePage() {
             </div>
 
             {/* Total emissions — prominent */}
-            <div className={`p-8 rounded-2xl text-center ${
+            <div className={`p-6 rounded-2xl text-center ${
               totalEmissions < 4 ? 'bg-green-50 border-green-200' : totalEmissions <= 8 ? 'bg-amber-50 border-amber-200' : 'bg-red-50 border-red-200'
             } border-[1.5px]`}>
               <div className="text-xs text-green-700/50 font-medium uppercase tracking-wide mb-2">Total Case Emissions</div>
@@ -642,7 +642,7 @@ export default function LogCasePage() {
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-3 mt-10">
+      <div className="flex gap-3 mt-6">
         {step > 0 && (
           <button onClick={goBack} className="btn-secondary flex-1">
             Back

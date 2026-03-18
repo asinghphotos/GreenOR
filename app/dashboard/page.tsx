@@ -117,7 +117,7 @@ export default function DashboardPage() {
     <>
       {showOnboarding && <Onboarding onComplete={handleOnboardingComplete} />}
 
-      <div className="space-y-8">
+      <div className="space-y-6">
         {/* Header */}
         <div className="animate-fade-up">
           <h1 className="text-3xl font-bold text-green-900 tracking-tight">Dashboard</h1>

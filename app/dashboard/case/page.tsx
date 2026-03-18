@@ -75,7 +75,7 @@ export default async function CaseDetailPage({
       </div>
 
       {/* Total emissions */}
-      <div className={`animate-fade-up delay-1 p-8 rounded-2xl text-center border-[1.5px] ${
+      <div className={`animate-fade-up delay-1 p-6 rounded-2xl text-center border-[1.5px] ${
         caseData.total_emissions_kg < 4 ? 'bg-green-50 border-green-200'
           : caseData.total_emissions_kg <= 8 ? 'bg-amber-50 border-amber-200'
           : 'bg-red-50 border-red-200'
