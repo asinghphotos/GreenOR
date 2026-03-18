@@ -1,0 +1,45 @@
+# GreenOR — AI Context
+
+## Project
+GreenOR is a surgical sustainability platform. It lets surgical teams log instruments/supplies used per OR case, calculates carbon emissions, and surfaces insights through dashboards and gamification.
+
+## Tech Stack
+- Next.js 14 (App Router, TypeScript)
+- Tailwind CSS with custom design system
+- Supabase (PostgreSQL + auth via magic links + RLS)
+- Vercel for hosting
+- Resend for branded emails
+
+## Design System
+- Font: Palatino everywhere (never Inter, Arial, or system fonts)
+- Background: warm beige #F9F5EE
+- Primary: forest green #1B4332
+- Cards: white bg, border 0.5px solid #E5E0D8, rounded-2xl
+- Inputs: white bg, border #E5E0D8, rounded-xl, focus:border-green-500 focus:ring-2 focus:ring-green-50
+- Primary buttons: bg-green-900 text-white font-bold rounded-xl hover:bg-green-700
+- Secondary buttons: border-2 border-beige-300 bg-white rounded-xl hover:border-green-300
+- Emissions colors: green-700 < 4kg, amber-700 4-8kg, red-700 > 8kg
+- Every card gets hover-lift class, every button gets tap-scale class
+- Animations defined in globals.css (fade-up, slide-right, slide-left, scale-in, etc.)
+
+## Key Rules
+1. Type `cookiesToSet` explicitly as `{ name: string; value: string; options?: any }[]` in supabase-server.ts and middleware.ts
+2. Export viewport config in layout.tsx with maximumScale: 1 for iOS
+3. All pages must work at 375px width
+4. No horizontal overflow at any screen size
+5. Use collapse-content/open CSS pattern for expandable sections
+6. Emission formula: Σ(item qty × emission_factor_kg) + Σ(tray qty × per_use_emission_kg)
+7. Auth is magic link only — no passwords
+8. Duration, anesthesia type, and anesthesia gas are REQUIRED fields
+
+## File Structure
+- lib/supabase-browser.ts — browser client
+- lib/supabase-server.ts — server client
+- lib/types.ts — all TypeScript interfaces and constants
+- lib/emissions.ts — emission calculation and formatting utilities
+- middleware.ts — auth redirect for /dashboard/*
+- app/dashboard/log/page.tsx — 7-step case logging wizard
+
+## Database Tables
+profiles, cpt_codes, equipment, instrument_sets, cases, case_items, case_sets
+Views: cases_with_details, emissions_by_approach
