@@ -27,6 +27,7 @@ function CountUp({ target, suffix = '' }: { target: number; suffix?: string }) {
   const started = useRef(false)
 
   useEffect(() => {
+    started.current = false
     const el = ref.current
     if (!el) return
     const observer = new IntersectionObserver(
@@ -65,6 +66,7 @@ export default function LandingPage() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'sent' | 'error'>('idle')
   const [message, setMessage] = useState('')
+  const [globalStats, setGlobalStats] = useState({ cases: 0, emissions: 0, institutions: 0, surgeons: 0 })
   const router = useRouter()
   const supabase = createClient()
 
@@ -75,6 +77,25 @@ export default function LandingPage() {
     }, 2000)
     return () => clearInterval(interval)
   }, [router, supabase])
+
+  useEffect(() => {
+    async function fetchGlobalStats() {
+      const [casesRes, profilesRes] = await Promise.all([
+        supabase.from('cases').select('total_emissions_kg'),
+        supabase.from('profiles').select('institution'),
+      ])
+      const cases = casesRes.data?.length ?? 0
+      const emissions = Math.round(
+        casesRes.data?.reduce((sum, c) => sum + (c.total_emissions_kg ?? 0), 0) ?? 0
+      )
+      const institutions = new Set(
+        profilesRes.data?.map((p) => p.institution).filter(Boolean)
+      ).size
+      const surgeons = profilesRes.data?.length ?? 0
+      setGlobalStats({ cases, emissions, institutions, surgeons })
+    }
+    fetchGlobalStats()
+  }, [supabase])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -204,10 +225,10 @@ export default function LandingPage() {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { label: 'Cases Logged', value: 0 },
-            { label: 'kg CO₂e Tracked', value: 0 },
-            { label: 'Institutions', value: 0 },
-            { label: 'Surgeons', value: 0 },
+            { label: 'Cases Logged', value: globalStats.cases },
+            { label: 'kg CO₂e Tracked', value: globalStats.emissions },
+            { label: 'Institutions', value: globalStats.institutions },
+            { label: 'Surgeons', value: globalStats.surgeons },
           ].map((stat, i) => (
             <div key={i} className="card p-6 text-center">
               <div className="text-3xl sm:text-4xl font-bold text-green-900 mb-1">
