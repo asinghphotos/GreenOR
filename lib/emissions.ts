@@ -23,8 +23,3 @@ export function emColor(kg: number): string {
   return 'text-red-700'
 }
 
-export function emBgColor(kg: number): string {
-  if (kg < 4) return 'bg-green-50'
-  if (kg <= 8) return 'bg-amber-50'
-  return 'bg-red-50'
-}

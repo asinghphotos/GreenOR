@@ -17,6 +17,29 @@ export interface Profile {
   created_at: string
 }
 
+export interface CptCode {
+  code: string
+  description: string
+  category: string
+  common_approaches: string[]
+}
+
+export interface Equipment {
+  id: string
+  name: string
+  category: string
+  emission_factor_kg: number
+  is_reusable: boolean
+}
+
+export interface InstrumentSet {
+  id: string
+  name: string
+  institution: string
+  per_use_emission_kg: number
+  description: string | null
+}
+
 export interface Case {
   id: string
   user_id: string
@@ -36,4 +59,42 @@ export interface CaseWithDetails extends Case {
   procedure_name: string
   procedure_category: string
   logged_by: string
+}
+
+export interface WizardItem {
+  equipment_id: string
+  name: string
+  quantity: number
+  emission_factor_kg: number
+}
+
+export interface WizardSet {
+  instrument_set_id: string
+  name: string
+  quantity: number
+  per_use_emission_kg: number
+}
+
+export interface WizardState {
+  cpt_code: string | null
+  procedure_name: string | null
+  surgical_approach: SurgicalApproach | null
+  items: WizardItem[]
+  sets: WizardSet[]
+  duration_minutes: number | null
+  anesthesia_type: string | null
+  anesthesia_gas: string | null
+  notes: string
+}
+
+export const initialWizardState: WizardState = {
+  cpt_code: null,
+  procedure_name: null,
+  surgical_approach: null,
+  items: [],
+  sets: [],
+  duration_minutes: null,
+  anesthesia_type: null,
+  anesthesia_gas: null,
+  notes: '',
 }
