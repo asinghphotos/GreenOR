@@ -19,14 +19,16 @@ Surgical sustainability platform. Surgeons log OR cases, select instruments/supp
 
 ## Design System
 - **Font:** Palatino always — never Inter, Arial, or system fonts
-- **Background:** `#F9F5EE` (warm beige)
+- **Background:** `bg-beige` (`#F9F5EE` light / `#0A120D` dark) — use CSS var `--c-beige`
 - **Primary:** `#1B4332` (forest green) → Tailwind `green-900`
-- **Cards:** `bg-white border border-[#E5E0D8] rounded-2xl` + `hover-lift` class
-- **Inputs:** `bg-white border border-[#E5E0D8] rounded-xl focus:border-green-500 focus:ring-2 focus:ring-green-50`
-- **Primary button:** `bg-green-900 text-white font-bold rounded-xl hover:bg-green-700 tap-scale`
-- **Secondary button:** `border-2 border-[#E5E0D8] bg-white rounded-xl hover:border-green-300`
+- **Cards:** `card` class (uses `--c-card-bg`) + `hover-lift`; do NOT hardcode `bg-white`
+- **Inputs:** `input-base` class (uses `--c-input-bg`, `--c-beige-300`, `--c-green-900`)
+- **Primary button:** `btn-primary` class; hover uses inset box-shadow (not pseudo-element)
+- **Secondary button:** `btn-secondary` class; hover lightens border to `green-100`
+- **Color tokens:** All Tailwind `green-*` and `beige-*` colors are CSS variables (`--c-green-*`, `--c-beige-*`) in RGB triplet format — dark mode switches them automatically via `@media (prefers-color-scheme: dark)`
 - **Emissions colors:** `text-green-700` < 4 kg · `text-amber-700` 4–8 kg · `text-red-700` > 8 kg
 - **Animations:** `fade-up`, `slide-right`, `slide-left`, `scale-in` — defined in globals.css
+- **Dark mode:** Automatic via `prefers-color-scheme`. Use CSS variable tokens, not hardcoded hex. Never use `bg-white` directly — use `bg-[rgb(var(--c-card-bg))]` or the `.card`/`.input-base` classes
 - **Mobile:** All pages must work at 375px. No horizontal overflow ever.
 
 ---
