@@ -77,10 +77,23 @@ export default async function HistoryPage({
               </div>
             </Link>
           ))
+        ) : searchParams.search || searchParams.approach ? (
+          <div className="text-center py-16">
+            <div className="flex justify-center mb-4 text-green-400">
+              <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z" />
+              </svg>
+            </div>
+            <p className="text-green-900 font-semibold text-sm mb-1">No cases match your filters</p>
+            <p className="text-green-700/50 text-xs mb-6">Try a different approach or clear your search.</p>
+            <Link href="/dashboard/history" className="text-sm text-green-700/60 hover:text-green-900 underline underline-offset-2 transition-colors">
+              Clear filters
+            </Link>
+          </div>
         ) : (
           <div className="text-center py-16">
             <div className="flex justify-center mb-4 text-green-400"><ClipboardIcon className="w-10 h-10" /></div>
-            <p className="text-green-700/50 text-sm mb-6">No cases found.</p>
+            <p className="text-green-700/50 text-sm mb-6">No cases logged yet.</p>
             <Link href="/dashboard/log" className="btn-primary">
               Log a Case
             </Link>
