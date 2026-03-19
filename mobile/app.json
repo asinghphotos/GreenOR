@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "GreenOR",
+    "slug": "greenor",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F9F5EE"
+    },
+    "scheme": "greenor",
+    "plugins": [
+      "expo-router"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.greenor.app"
+    },
+    "android": {
+      "package": "com.greenor.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#F9F5EE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
