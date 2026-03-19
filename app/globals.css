@@ -232,6 +232,8 @@ body {
 }
 
 /* ── Button base styles ── */
+/* Gradient hover is done via ::before pseudo-element at opacity 0 → 1
+   because CSS cannot smoothly interpolate between two gradients directly */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -245,13 +247,36 @@ body {
   border: none;
   cursor: pointer;
   font-size: 0.9375rem;
-  box-shadow: 0 2px 12px rgba(27, 67, 50, 0.28), 0 1px 3px rgba(27, 67, 50, 0.15);
-  transition: background 0.4s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(27, 67, 50, 0.25), 0 1px 3px rgba(27, 67, 50, 0.12);
+  transition: box-shadow 0.5s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
-  box-shadow: 0 6px 24px rgba(27, 67, 50, 0.28), 0 2px 6px rgba(64, 145, 108, 0.12);
+  box-shadow: 0 5px 20px rgba(27, 67, 50, 0.25), 0 2px 6px rgba(64, 145, 108, 0.1);
+}
+
+/* Keep text/content above the pseudo-element */
+.btn-primary > *,
+.btn-primary > span {
+  position: relative;
+  z-index: 1;
 }
 
 .btn-primary:active {
@@ -277,11 +302,11 @@ body {
   border: 2px solid #E5E0D8;
   cursor: pointer;
   font-size: 0.9375rem;
-  transition: border-color 0.2s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.5s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-secondary:hover {
-  border-color: #74C69D;
+  border-color: #B7E4C7;
 }
 
 .btn-secondary:active {
