@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────
+   Color tokens — light mode defaults
+   RGB triplets so Tailwind opacity modifiers work
+───────────────────────────────────────────── */
+:root {
+  color-scheme: light dark;
+  --c-green-50:  216 243 220;
+  --c-green-100: 183 228 199;
+  --c-green-300: 116 198 157;
+  --c-green-500: 64  145 108;
+  --c-green-700: 45  106 79;
+  --c-green-900: 27  67  50;
+  --c-beige:     249 245 238;
+  --c-beige-100: 244 240 232;
+  --c-beige-200: 237 232 223;
+  --c-beige-300: 229 224 216;
+  --c-card-bg:   255 255 255;
+  --c-input-bg:  255 255 255;
+}
+
 /* ── Base ── */
 html {
   scroll-behavior: smooth;
@@ -198,24 +218,24 @@ body {
 
 /* ── Card base style ── */
 .card {
-  background: white;
-  border: 0.5px solid #E5E0D8;
+  background: rgb(var(--c-card-bg));
+  border: 0.5px solid rgb(var(--c-beige-300));
   border-radius: 1.25rem;
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .card:hover {
-  border-color: #D0EDD8;
+  border-color: rgb(var(--c-green-100));
 }
 
 /* ── Input base ── */
 .input-base {
   width: 100%;
   padding: 0.875rem 1.25rem;
-  background: white;
-  border: 1.5px solid #E5E0D8;
+  background: rgb(var(--c-input-bg));
+  border: 1.5px solid rgb(var(--c-beige-300));
   border-radius: 0.875rem;
-  color: #1B4332;
+  color: rgb(var(--c-green-900));
   font-family: inherit;
   font-size: 0.9375rem;
   outline: none;
@@ -223,7 +243,7 @@ body {
 }
 
 .input-base::placeholder {
-  color: #C4BFB6;
+  color: rgb(var(--c-green-300) / 0.6);
 }
 
 .input-base:focus {
@@ -232,8 +252,8 @@ body {
 }
 
 /* ── Button base styles ── */
-/* Gradient hover is done via ::before pseudo-element at opacity 0 → 1
-   because CSS cannot smoothly interpolate between two gradients directly */
+/* Hover lightening uses inset box-shadow — transitions perfectly smoothly
+   and never obscures text content (unlike pseudo-element approaches) */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -247,36 +267,15 @@ body {
   border: none;
   cursor: pointer;
   font-size: 0.9375rem;
-  position: relative;
-  overflow: hidden;
   box-shadow: 0 2px 12px rgba(27, 67, 50, 0.25), 0 1px 3px rgba(27, 67, 50, 0.12);
-  transition: box-shadow 0.5s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  border-radius: inherit;
-  z-index: 0;
-}
-
-.btn-primary:hover::before {
-  opacity: 1;
+  transition: box-shadow 0.45s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 5px 20px rgba(27, 67, 50, 0.25), 0 2px 6px rgba(64, 145, 108, 0.1);
-}
-
-/* Keep text/content above the pseudo-element */
-.btn-primary > *,
-.btn-primary > span {
-  position: relative;
-  z-index: 1;
+  box-shadow:
+    inset 0 0 0 300px rgba(116, 198, 157, 0.16),
+    0 5px 20px rgba(27, 67, 50, 0.22),
+    0 2px 6px rgba(64, 145, 108, 0.1);
 }
 
 .btn-primary:active {
@@ -294,19 +293,19 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0.875rem 1.75rem;
-  background: white;
-  color: #1B4332;
+  background: rgb(var(--c-card-bg));
+  color: rgb(var(--c-green-900));
   font-weight: 700;
   font-family: inherit;
   border-radius: 0.875rem;
-  border: 2px solid #E5E0D8;
+  border: 2px solid rgb(var(--c-beige-300));
   cursor: pointer;
   font-size: 0.9375rem;
-  transition: border-color 0.5s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.45s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-secondary:hover {
-  border-color: #B7E4C7;
+  border-color: rgb(var(--c-green-100));
 }
 
 .btn-secondary:active {
@@ -411,4 +410,106 @@ body {
 /* ── Subtle page gradient background ── */
 .page-bg-gradient {
   background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(183, 228, 199, 0.25) 0%, transparent 70%);
+}
+
+/* ─────────────────────────────────────────────
+   Dark mode — switches when system is dark
+   All Tailwind green/beige utilities auto-switch
+   via the CSS variables defined in :root above.
+───────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-green-50:  18  34  22;
+    --c-green-100: 25  46  32;
+    --c-green-300: 42  76  55;
+    --c-green-500: 116 198 157;   /* keep mid-green accent */
+    --c-green-700: 183 228 199;   /* light green for secondary text */
+    --c-green-900: 220 242 226;   /* near-white green for primary text */
+    --c-beige:     10  18  13;    /* very dark forest for page bg */
+    --c-beige-100: 15  26  19;
+    --c-beige-200: 21  38  27;
+    --c-beige-300: 31  54  38;
+    --c-card-bg:   15  26  19;    /* dark card surface */
+    --c-input-bg:  10  18  13;    /* slightly darker input */
+  }
+
+  /* Body text — Tailwind's text-green-900 on body becomes light via the variable */
+  body {
+    background-color: rgb(var(--c-beige));
+    color: rgb(var(--c-green-900));
+  }
+
+  /* Nav — override the bg-white/70 backdrop */
+  nav {
+    background-color: rgba(10, 18, 13, 0.88) !important;
+    border-bottom-color: rgb(var(--c-beige-300)) !important;
+  }
+
+  /* Selection highlight */
+  ::selection {
+    background-color: rgb(var(--c-green-300));
+    color: rgb(var(--c-beige));
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--c-beige-300));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--c-green-500));
+  }
+
+  /* Stat icon bubble — dark bg, light icon */
+  .stat-icon-wrap {
+    background: linear-gradient(135deg, rgb(var(--c-green-100)) 0%, rgb(var(--c-green-300)) 100%);
+    color: rgb(var(--c-green-700));
+  }
+
+  /* Badge pill — frosted dark look */
+  .badge-pill {
+    background: linear-gradient(135deg, rgba(42, 76, 55, 0.8) 0%, rgba(25, 46, 32, 0.6) 100%);
+    border-color: rgba(116, 198, 157, 0.25);
+    color: rgb(var(--c-green-700));
+    box-shadow: 0 0 12px rgba(116, 198, 157, 0.08), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* Card accent top stripe — keep visible on dark */
+  .card-accent-top::before {
+    background: linear-gradient(90deg, #2D6A4F 0%, #40916C 50%, #2D6A4F 100%);
+  }
+
+  /* Nav link underline — use mid-green accent */
+  .nav-link-animated::after {
+    background: linear-gradient(90deg, rgb(var(--c-green-500)), rgb(var(--c-green-300)));
+  }
+
+  /* Hover lift shadow — green-tinted on dark */
+  .hover-lift:hover {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), 0 3px 8px rgba(116, 198, 157, 0.08);
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(116, 198, 157, 0.06);
+    border-color: rgb(var(--c-green-300));
+  }
+
+  /* btn-primary inset hover uses a lighter tint on dark */
+  .btn-primary:hover {
+    box-shadow:
+      inset 0 0 0 300px rgba(116, 198, 157, 0.12),
+      0 5px 20px rgba(0, 0, 0, 0.35),
+      0 2px 6px rgba(116, 198, 157, 0.08);
+  }
+
+  /* bg-green-900 is used for selected/active button states in wizard.
+     With the inverted palette it becomes light — force it back dark
+     so text-white stays readable on those selected buttons. */
+  .bg-green-900 {
+    background-color: #1B4332 !important;
+  }
+
+  /* Wizard/form selected chip text stays white on forced-dark bg */
+  .bg-green-900.text-white {
+    color: white !important;
+  }
 }
